@@ -234,19 +234,20 @@
 # st.success(" All filles processed !")
 
 
+import importlib
 import streamlit as st
 import pandas as pd
 import os
-import subprocess
 import sys
 from io import BytesIO
 
-# Ensure 'openpyxl' is installed for handling Excel files
+# Ensure 'openpyxl' is installed
+package_name = "openpyxl"
 try:
-    import openpyxl
+    importlib.import_module(package_name)
 except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "openpyxl"])
-    import openpyxl
+    st.error(f"Missing package: {package_name}. Install it using: pip install {package_name}")
+    st.stop()
 
 # Set up our Streamlit app
 st.set_page_config(page_title="Data Sweeper", layout="wide")
