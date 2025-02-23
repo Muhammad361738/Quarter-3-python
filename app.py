@@ -30,8 +30,11 @@ if upload_files:
         
         if file_ext ==  ".csv":
             df = pd.read_csv(file)
-        elif file_ext == "xlsx":
-            df = pd.read_excel(file)
+        elif file_ext == ".xlsx":
+            df = pd.read_excel(file, engine='openpyxl')  # Use openpyxl engine for Excel
+
+        # elif file_ext == ".xlsx":
+        #     df = pd.read_excel(file)
         else : 
             st.error(f"unsupported file type : {file_ext}")
             continue
@@ -78,7 +81,7 @@ if upload_files:
                 
         elif conversion_type == "Excel":
             df.to_excel(buffer,index=False)
-            file_name = file_name.replace(file_ext, "xlsx")
+            file_name = file_name.replace(file_ext, ".xlsx")
             mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             buffer.seek(0)
             
